@@ -110,8 +110,9 @@ export default class Peer extends Node {
 
     _onPeerData (id, data) {
         console.log('received data ' + data + ' from ' + id)
-        const obj = JSON.parse(data.toString('utf8'))
-        if (typeof obj === 'object') {
+        try {
+            const obj = JSON.parse(data.toString('utf8'))
+            if (typeof obj === 'object') {
             /*
             if (obj.type == MessageType.PING) {
                 debug('[Peer::_onPeerData] send pong to %s', id )
@@ -121,7 +122,12 @@ export default class Peer extends Node {
                 this.send(id, JSON.stringify(Message.ping()))
             }
             */
+            }
         }
+        catch(error) {
+            console.log(error)
+        }
+
     }
 
     // eslint-disable-next-line no-unused-vars
